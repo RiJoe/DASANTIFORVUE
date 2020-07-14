@@ -18,8 +18,13 @@
       v-loading="loading"
       :data="tableData"
       border
+      highlight-current-row
       :height="tableHeight"
       :row-class-name="tableRowClassName">
+      <el-table-column
+        type="index"
+        width="50">
+      </el-table-column>
       <el-table-column
         prop="companyName"
         label="企业名称"

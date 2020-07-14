@@ -14,9 +14,15 @@
     style="width: 100%"
     :data="tableData"
     :cell-class-name="tableRowClassName"
+    highlight-current-row
     :height="tableHeight"
     border
     >
+    <el-table-column
+      fixed
+      type="index"
+      width="40">
+    </el-table-column>
     <el-table-column
       fixed
       prop="companyName"
@@ -56,7 +62,7 @@
     <el-table-column
       prop="address"
       label="地址"
-      width="300">
+      width="260">
     </el-table-column>
     <el-table-column
       prop="note"
