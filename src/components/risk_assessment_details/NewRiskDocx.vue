@@ -1196,71 +1196,71 @@
         this.msg.concreteEvaluationList.forEach(item=>{
           // 1、重大危险源
           if(item.influenceFactorId ===1){
-            if (item.determineFactor ==='一级') this.risk.riskLevel = "√",this.risk.photoOne = item.photo.split('#').splice(1)
-            if (item.determineFactor ==='二级') this.risk.riskLevel2 = "√", this.risk.photoTwo = item.photo.split('#').splice(1)
-            if (item.determineFactor ==='三级') this.risk.riskLevel3 = "√",this.risk.photoThree = item.photo.split('#').splice(1)
-            if (item.determineFactor ==='四级') this.risk.riskLevel4 = "√",this.risk.photoFour = item.photo.split('#').splice(1)
-            if (item.determineFactor ==='无') this.risk.riskLevel5 = "√",this.risk.photoFive = item.photo.split('#').splice(1)
+            if (item.determineFactor ==='一级') this.risk.riskLevel = "√",this.risk.photoOne = (item.photo || "").split(',')
+            if (item.determineFactor ==='二级') this.risk.riskLevel2 = "√", this.risk.photoTwo = (item.photo || "").split(',')
+            if (item.determineFactor ==='三级') this.risk.riskLevel3 = "√",this.risk.photoThree = (item.photo || "").split(',')
+            if (item.determineFactor ==='四级') this.risk.riskLevel4 = "√",this.risk.photoFour = (item.photo || "").split(',')
+            if (item.determineFactor ==='无') this.risk.riskLevel5 = "√",this.risk.photoFive = (item.photo || "").split(',')
           }
           // 2、特种设备
           if(item.influenceFactorId === 2){
-            if(item.determineFactor ==='锅炉')  this.risk.guolu = "√",this.risk.guoluphoto = item.photo.split('#').splice(1)
-            if(item.determineFactor ==='压力容器')  this.risk.yalirongqi = "√",this.risk.yalirongqiphoto = item.photo.split('#').splice(1)
-            if(item.determineFactor ==='其他')  this.risk.qita = "√",this.risk.qitaphoto = item.photo.split('#').splice(1)
-            if(item.determineFactor ==='无')  this.risk.not = "√",this.risk.notphoto = item.photo.split('#').splice(1)
+            if(item.determineFactor ==='锅炉')  this.risk.guolu = "√",this.risk.guoluphoto = (item.photo || "").split(',')
+            if(item.determineFactor ==='压力容器')  this.risk.yalirongqi = "√",this.risk.yalirongqiphoto = (item.photo || "").split(',')
+            if(item.determineFactor ==='其他')  this.risk.qita = "√",this.risk.qitaphoto = (item.photo || "").split(',')
+            if(item.determineFactor ==='无')  this.risk.not = "√",this.risk.notphoto = (item.photo || "").split(',')
           }
           // 3、危险设施设备
           if(item.influenceFactorId === 3){
-            if(item.determineFactor === "洁净车间") this.risk.jiejingchejian = "√",this.risk.jiejingchejianphoto = item.photo.split('#').splice(1)
-            if(item.determineFactor === "砂光机") this.risk.shaguagnji = "√",this.risk.shaguagnjiphoto = item.photo.split('#').splice(1)
-            if(item.determineFactor === "冲剪压机械") this.risk.chongjianyajixie = "√",this.risk.chongjianyajixiephoto = item.photo.split('#').splice(1)
-            if(item.determineFactor === "烤箱") this.risk.kaoxiang = "√",this.risk.kaoxiangphoto = item.photo.split('#').splice(1)
-            if(item.determineFactor === "无") this.risk.weixianshebeiwu = "√",this.risk.weixianshebeiwuphoto = item.photo.split('#').splice(1)
+            if(item.determineFactor === "洁净车间") this.risk.jiejingchejian = "√",this.risk.jiejingchejianphoto = (item.photo || "").split(',')
+            if(item.determineFactor === "砂光机") this.risk.shaguagnji = "√",this.risk.shaguagnjiphoto = (item.photo || "").split(',')
+            if(item.determineFactor === "冲剪压机械") this.risk.chongjianyajixie = "√",this.risk.chongjianyajixiephoto = (item.photo || "").split(',')
+            if(item.determineFactor === "烤箱") this.risk.kaoxiang = "√",this.risk.kaoxiangphoto = (item.photo || "").split(',')
+            if(item.determineFactor === "无") this.risk.weixianshebeiwu = "√",this.risk.weixianshebeiwuphoto = (item.photo || "").split(',')
           }
           // 4、危险化学品
           if (item.influenceFactorId ===4){
-            if(item.determineFactor === "危险化学品") this.risk.weixianhuaxuepin = item.remark,this.risk.weixianhuaxuepinphoto = item.photo.split('#').splice(1)
-            if(item.determineFactor === "无") this.risk.weixianhuaxuepinwu= "√",this.risk.weixianhuaxuepinwuphoto = item.photo.split('#').splice(1)
+            if(item.determineFactor === "危险化学品") this.risk.weixianhuaxuepin = item.remark,this.risk.weixianhuaxuepinphoto = (item.photo || "").split(',')
+            if(item.determineFactor === "无") this.risk.weixianhuaxuepinwu= "√",this.risk.weixianhuaxuepinwuphoto = (item.photo || "").split(',')
           }
           // 5、危险工艺
           if (item.influenceFactorId ===5){
-            if(item.determineFactor === "铝镁粉尘") this.risk.lvmeifenchen = "√",this.risk.lvmeifenchenphoto = item.photo.split('#').splice(1)
-            if(item.determineFactor === "木粉尘") this.risk.qitafenchen = "√",this.risk.qitafenchenphoto = item.photo.split('#').splice(1)
-            if(item.determineFactor === "涉氨") this.risk.shean = "√",this.risk.sheanphoto = item.photo.split('#').splice(1)
-            if(item.determineFactor === "有限空间") this.risk.youxiankongjian = "√",this.risk.youxiankongjianphoto = item.photo.split('#').splice(1)
-            if(item.determineFactor === "喷漆喷油") this.risk.penqipenyou = "√",this.risk.penqipenyouphoto = item.photo.split('#').splice(1)
-            if(item.determineFactor === "涂层烘干") this.risk.tucenghonggan = "√",this.risk.tucenghongganphoto = item.photo.split('#').splice(1)
-            if(item.determineFactor === "锂离子电池") this.risk.lilizidianchi = "√",this.risk.lilizidianchiphoto = item.photo.split('#').splice(1)
-            if(item.determineFactor === "高温熔融") this.risk.gaowenrongrong = "√",this.risk.gaowenrongrongphoto = item.photo.split('#').splice(1)
-            if(item.determineFactor === "使用排风管道") this.risk.shiyongpaifengguandao = "√",this.risk.shiyongpaifengguandaophoto = item.photo.split('#').splice(1)
-            if(item.determineFactor === "无") this.risk.weixiangongyiwu = "√",this.risk.weixiangongyiwuphoto = item.photo.split('#').splice(1)
+            if(item.determineFactor === "铝镁粉尘") this.risk.lvmeifenchen = "√",this.risk.lvmeifenchenphoto = (item.photo || "").split(',')
+            if(item.determineFactor === "木粉尘") this.risk.qitafenchen = "√",this.risk.qitafenchenphoto = (item.photo || "").split(',')
+            if(item.determineFactor === "涉氨") this.risk.shean = "√",this.risk.sheanphoto = (item.photo || "").split(',')
+            if(item.determineFactor === "有限空间") this.risk.youxiankongjian = "√",this.risk.youxiankongjianphoto = (item.photo || "").split(',')
+            if(item.determineFactor === "喷漆喷油") this.risk.penqipenyou = "√",this.risk.penqipenyouphoto = (item.photo || "").split(',')
+            if(item.determineFactor === "涂层烘干") this.risk.tucenghonggan = "√",this.risk.tucenghongganphoto = (item.photo || "").split(',')
+            if(item.determineFactor === "锂离子电池") this.risk.lilizidianchi = "√",this.risk.lilizidianchiphoto = (item.photo || "").split(',')
+            if(item.determineFactor === "高温熔融") this.risk.gaowenrongrong = "√",this.risk.gaowenrongrongphoto = (item.photo || "").split(',')
+            if(item.determineFactor === "使用排风管道") this.risk.shiyongpaifengguandao = "√",this.risk.shiyongpaifengguandaophoto = (item.photo || "").split(',')
+            if(item.determineFactor === "无") this.risk.weixiangongyiwu = "√",this.risk.weixiangongyiwuphoto = (item.photo || "").split(',')
 
           }
           // 6、应急反应
           if(item.influenceFactorId === 6){
-            if (item.determineFactor === "无预案无演练") this.risk.wuyuanwuyanlian = "√" , this.risk.wuyuanwuyanlianphoto = item.photo.split('#').splice(1)
-            if (item.determineFactor === "有预案无演练") this.risk.youyuanwuyanlian = "√" , this.risk.youyuanwuyanlianphoto = item.photo.split('#').splice(1)
-            if (item.determineFactor === "有预案有演练") this.risk.youyuanyouyanlian = "√" , this.risk.youyuanyouyanlianphoto = item.photo.split('#').splice(1)
+            if (item.determineFactor === "无预案无演练") this.risk.wuyuanwuyanlian = "√" , this.risk.wuyuanwuyanlianphoto = (item.photo || "").split(',')
+            if (item.determineFactor === "有预案无演练") this.risk.youyuanwuyanlian = "√" , this.risk.youyuanwuyanlianphoto = (item.photo || "").split(',')
+            if (item.determineFactor === "有预案有演练") this.risk.youyuanyouyanlian = "√" , this.risk.youyuanyouyanlianphoto = (item.photo || "").split(',')
           }
           // 7、安全生产标准化
           if(item.influenceFactorId === 7){
-            if (item.determineFactor === "未达标") this.risk.weidabiao = "√",this.risk.weidabiaophoto = (item.photo||"").split('#')
-            if (item.determineFactor === "达标但记录不完善") this.risk.dabiaodanjilubuwanshan = "√",this.risk.dabiaodanjilubuwanshanphoto = (item.photo || "").split('#').splice(1)
-            if (item.determineFactor === "达标且有效运行")  this.risk.dabiaoqieyouxiaoyunxing = "√",this.risk.dabiaoqieyouxiaoyunxingphoto = (item.photo || "").split('#').splice(1)
+            if (item.determineFactor === "未达标") this.risk.weidabiao = "√",this.risk.weidabiaophoto = (item.photo||"").split(',')
+            if (item.determineFactor === "达标但记录不完善") this.risk.dabiaodanjilubuwanshan = "√",this.risk.dabiaodanjilubuwanshanphoto = (item.photo || "").split(',')
+            if (item.determineFactor === "达标且有效运行")  this.risk.dabiaoqieyouxiaoyunxing = "√",this.risk.dabiaoqieyouxiaoyunxingphoto = (item.photo || "").split(',')
 
           }
           // 8、隐患自查自报
           if(item.influenceFactorId ===8){
-            if (item.determineFactor === "有自查自报并上传到系统") this.risk.youzichazibaobingshangchuandaoxitong = "√" ,this.risk.youzichazibaobingshangchuandaoxitongphoto = (item.photo || "").split('#').splice(1)
-            if (item.determineFactor === "有自查自报，但未上传") this.risk.youzichazibaodanweishangchuan = "√", this.risk.youzichazibaodanweishangchuanphoto = (item.photo || "").split('#').splice(1)
-            if (item.determineFactor === "未进行自查自报") this.risk.weijinxingzichazibao = "√", this.risk.weijinxingzichazibaophoto = (item.photo || "").split('#').splice(1)
+            if (item.determineFactor === "有自查自报并上传到系统") this.risk.youzichazibaobingshangchuandaoxitong = "√" ,this.risk.youzichazibaobingshangchuandaoxitongphoto = (item.photo || "").split(',')
+            if (item.determineFactor === "有自查自报，但未上传") this.risk.youzichazibaodanweishangchuan = "√", this.risk.youzichazibaodanweishangchuanphoto = (item.photo || "").split(',')
+            if (item.determineFactor === "未进行自查自报") this.risk.weijinxingzichazibao = "√", this.risk.weijinxingzichazibaophoto = (item.photo || "").split(',')
 
           }
           // 9、安全教育培训情况
           if(item.influenceFactorId ===9){
-            if (item.determineFactor === "无三级培训") this.risk.wusanjipeixun = "√",this.risk.wusanjipeixunphoto = (item.photo || "").split('#').splice(1)
-            if (item.determineFactor === "有三级培训但不完善") this.risk.yousanjipeixundanbuwanshan = "√",this.risk.yousanjipeixundanbuwanshanphoto = (item.photo || "").split('#').splice(1)
-            if (item.determineFactor === "三级培训完善") this.risk.sanjipeixunwanshan = "√",this.risk.sanjipeixunwanshanphoto = (item.photo || "").split('#').splice(1)
+            if (item.determineFactor === "无三级培训") this.risk.wusanjipeixun = "√",this.risk.wusanjipeixunphoto = (item.photo || "").split(',')
+            if (item.determineFactor === "有三级培训但不完善") this.risk.yousanjipeixundanbuwanshan = "√",this.risk.yousanjipeixundanbuwanshanphoto = (item.photo || "").split(',')
+            if (item.determineFactor === "三级培训完善") this.risk.sanjipeixunwanshan = "√",this.risk.sanjipeixunwanshanphoto = (item.photo || "").split(',')
           }
           // 10、从业人数
           if(item.influenceFactorId ===10){
