@@ -1,274 +1,5 @@
 <template>
     <div class="mytable" >
-      <!--<el-collapse v-model="activeNames" @change="handleChange">
-        <el-collapse-item name="1">
-          <template slot="title" >
-            <i class="el-icon-s-cooperation"></i>事故后果
-          </template>
-          <div class="info-detail">
-            <div>
-              <p >1.重大危险源：{{this.zhongdaweixianyuan.join(',')}}</p>
-            </div>
-            <div class="demo-image__preview">
-              <el-image
-                style="width: 50px; height: 50px"
-                :src="zhongdaweixianyuanurl"
-                :preview-src-list="photo1">
-                <div slot="error" class="image-slot">
-                  <p>无图片</p>
-                </div>
-              </el-image>
-            </div>
-
-          </div>
-          <el-divider></el-divider>
-          <div class="info-detail">
-            <div>
-              <p>2.特种设备：{{tezhongshebei.join(',')}}</p>
-            </div>
-            <div class="demo-image__preview">
-              <el-image
-                style="width: 50px; height: 50px"
-                :src="tezhongshebeiurl"
-                :preview-src-list="tezhongshebeiphoto">
-                <div slot="error" class="image-slot">
-                  <p>无图片</p>
-                </div>
-              </el-image>
-            </div>
-
-          </div>
-          <el-divider></el-divider>
-          <div class="info-detail">
-            <div>
-              <p>3.危险设施、设备：{{weixianshebei.join(',')}}</p>
-            </div>
-            <div class="demo-image__preview">
-              <el-image
-                style="width: 50px; height: 50px"
-                :src="weixianshebeiurl"
-                :preview-src-list="weixianshebeiphoto">
-                <div slot="error" class="image-slot">
-                  <p>无图片</p>
-                </div>
-              </el-image>
-            </div>
-
-          </div>
-          <el-divider></el-divider>
-          <div class="info-detail">
-            <div>
-              <p>4.危险化学品：{{weixianhuaxuepin.join(',')}}</p>
-            </div>
-            <div class="demo-image__preview">
-              <el-image
-                style="width: 50px; height: 50px"
-                :src="weixianhuaxuepinurl"
-                :preview-src-list="weixianhuaxuepinphoto">
-                <div slot="error" class="image-slot">
-                  <p>无图片</p>
-                </div>
-              </el-image>
-            </div>
-
-          </div>
-          <el-divider></el-divider>
-          <div class="info-detail">
-            <div>
-              <p>5.危险工艺：{{weixiangongyi.join(',')}}</p>
-            </div>
-            <div class="demo-image__preview">
-              <el-image
-                style="width: 50px; height: 50px"
-                :src="weixiangongyiurl"
-                :preview-src-list="weixiangongyiphoto">
-                <div slot="error" class="image-slot">
-                  <p>无图片</p>
-                </div>
-              </el-image>
-            </div>
-
-          </div>
-          <el-divider></el-divider>
-          <div class="info-detail">
-            <div>
-              <p>6.应急反应：{{yingjifanying.join(',')}}</p>
-            </div>
-            <div class="demo-image__preview">
-              <el-image
-                style="width: 50px; height: 50px"
-                :src="yingjifanyingurl"
-                :preview-src-list="yingjifanxingphoto">
-                <div slot="error" class="image-slot">
-                  <p>无图片</p>
-                </div>
-              </el-image>
-            </div>
-
-          </div>
-        </el-collapse-item>
-        <el-collapse-item name="2">
-          <template slot="title">
-            <i class="el-icon-s-cooperation"></i>事故可能性
-          </template>
-          <div class="info-detail">
-            <div>
-              <p >7.安全生产标准化：{{anquanshengchanbiaozhunhua.join(',')}}</p>
-            </div>
-            <div class="demo-image__preview">
-              <el-image
-                style="width: 50px; height: 50px"
-                :src="anquanshengchanbiaozhunhuaurl"
-                :preview-src-list="anquanshengchanbiaozhunhuaphoto">
-                <div slot="error" class="image-slot">
-                  <p>无图片</p>
-                </div>
-              </el-image>
-            </div>
-
-          </div>
-          <el-divider></el-divider>
-          <div class="info-detail">
-            <div>
-              <p >8.隐患自查自报：{{yinhuanzichazibao.join(',')}}</p>
-            </div>
-            <div class="demo-image__preview">
-              <el-image
-                style="width: 50px; height: 50px"
-                :src="yinhuanzichazibaourl"
-                :preview-src-list="yinhuanzichazibaophoto">
-                <div slot="error" class="image-slot">
-                  <p>无图片</p>
-                </div>
-              </el-image>
-            </div>
-
-          </div>
-          <el-divider></el-divider>
-          <div class="info-detail">
-            <div>
-              <p >9.安全教育培训情况：{{anquanjiaoyu.join(',')}}</p>
-            </div>
-            <div class="demo-image__preview">
-              <el-image
-                style="width: 50px; height: 50px"
-                :src="anquanjiaoyuurl"
-                :preview-src-list="anquanjiaoyuphoto">
-                <div slot="error" class="image-slot">
-                  <p>无图片</p>
-                </div>
-              </el-image>
-            </div>
-
-          </div>
-        </el-collapse-item>
-        <el-collapse-item name="3">
-          <template slot="title">
-            <i class="el-icon-s-cooperation"></i>事故暴露程度
-          </template>
-          <div class="employee-detail">
-            <p >10.从业人数（每班）：{{chongyerenshu}}</p>
-          </div>
-        </el-collapse-item>
-        <el-collapse-item name="4">
-          <template slot="title">
-            <i class="el-icon-s-marketing"></i>风险详情
-          </template>
-            <div>
-            <el-card class="box-card">
-              <p>企业名称：{{msg.companyName}}</p>
-              <p>风险值：{{score}}</p>
-              <p>风险等级：{{therisklevel}}</p>
-              <p>主要危险源：{{weixianshebei.join(',')}}</p>
-              <p>主要风险名称：{{weixiangongyi.join(',')}}</p>
-              <p>措施：{{work}}</p>
-            </el-card>
-            </div>
-        </el-collapse-item>
-      </el-collapse>-->
-      <!--<h3>{{msg.companyName}}风险详情</h3>
-      <el-table
-        :data="riskmessage"
-        :span-method="objectSpanMethod"
-        border
-        style="width: 100%; margin-top: 20px">
-        <el-table-column
-          label="类别"
-          width="180">
-          <template slot-scope="scope">
-            <h3 v-if="scope.row.categoryId === 1">重大事故</h3>
-            <h3 v-if="scope.row.categoryId === 2">事故可能性</h3>
-            <h3 v-if="scope.row.categoryId === 3">事故暴露程度</h3>
-          </template>
-        </el-table-column>
-        <el-table-column
-          label="影响因素">
-          <template slot-scope="scope">
-            <h4 v-if="scope.row.influenceFactorId === 1">1.重大危险源</h4>
-            <h4 v-if="scope.row.influenceFactorId === 2">2.特种设备</h4>
-            <h4 v-if="scope.row.influenceFactorId === 3">3.危险设备、设施</h4>
-            <h4 v-if="scope.row.influenceFactorId === 4">4.危险化学品</h4>
-            <h4 v-if="scope.row.influenceFactorId === 5">5.危险工艺</h4>
-            <h4 v-if="scope.row.influenceFactorId === 6">6.应急反应</h4>
-            <h4 v-if="scope.row.influenceFactorId === 7">7.生产安全标准化</h4>
-            <h4 v-if="scope.row.influenceFactorId === 8">8.隐患自查自报</h4>
-            <h4 v-if="scope.row.influenceFactorId === 9">9.安全教育培训情况</h4>
-            <h4 v-if="scope.row.influenceFactorId === 10">10.从业人数（每班）</h4>
-          </template>
-        </el-table-column>
-        <el-table-column
-          prop="determineFactor"
-          label="判定要素">
-          &lt;!&ndash;<template slot-scope="scope">
-            <h5 v-if="scope.row.determineFactor == '危险化学品'">{{scope.row.remark}}</h5>
-          </template>&ndash;&gt;
-        </el-table-column>
-        <el-table-column
-          prop="score"
-          label="分值情况">
-        </el-table-column>
-        <el-table-column
-          label="现场图片">
-          <template slot-scope="scope">
-          <div class="demo-image__preview">
-            <el-image
-              style="width: 35px; height: 35px"
-              :src="scope.row.photo[0]"
-              :preview-src-list="scope.row.photo">
-              <div slot="error" class="image-slot">
-                <p>无图片</p>
-              </div>
-            </el-image>
-          </div>
-          </template>
-        </el-table-column>
-
-      </el-table>
-      <div class="box-and-card">
-      <el-card class="box-card">
-        <p>企业名称：{{msg.companyName}}</p>
-        <p>主要负责人：{{msg.principal}}</p>
-        <p>填报人：{{msg.fillName}}</p>
-        <p>填报人电话：{{msg.fillNumber}}</p>
-        <p>企业地址：{{msg.address}}</p>
-      </el-card>
-
-      <el-card class="box-card">
-
-        <p>风险值：{{msg.riskScore}}</p>
-        <p v-if="msg.riskScore >= 1000">风险等级：重大危险</p>
-        <p v-if="msg.riskScore <1000  && msg.riskScore >= 720">风险等级：较大风险</p>
-        <p v-if="msg.riskScore <720 && msg.riskScore >= 500 ">风险等级：一般风险</p>
-        <p v-if="msg.riskScore <500 && msg.riskScore >= 300  ">风险等级：较低风险</p>
-        <p>主要危险源：{{msg.majorSourceOfDanger}}</p>
-        <p>主要风险名称：{{msg.mainRisk}}</p>
-        <p v-if="msg.riskScore >= 1000">措施：不可容许、停工</p>
-        <p v-if="msg.riskScore <1000  && msg.riskScore >= 720">措施：立即整改，方案、验收</p>
-        <p v-if="msg.riskScore <720 && msg.riskScore >= 500 ">措施：需要整改，整改、检查</p>
-        <p v-if="msg.riskScore <500 && msg.riskScore >= 300  ">措施：需要注意，培训、检查</p>
-      </el-card>
-
-      </div>-->
       <h3>2020年{{msg.companyName}}风险详情</h3>
     <table border="1" cellspacing="0" align="center">
       <tr>
@@ -292,7 +23,7 @@
               :src="risk.photoOne[0]"
               :preview-src-list="risk.photoOne">
               <div slot="error" class="image-slot">
-                <p>无</p>
+                <p></p>
               </div>
             </el-image>
 
@@ -309,7 +40,7 @@
             :src="risk.photoTwo[0]"
             :preview-src-list="risk.photoTwo">
             <div slot="error" class="image-slot">
-              <p>无</p>
+              <p></p>
             </div>
           </el-image>
         </div>
@@ -328,7 +59,7 @@
               :src="risk.photoThree[0]"
               :preview-src-list="risk.photoThree">
               <div slot="error" class="image-slot">
-                <p>无</p>
+                <p></p>
               </div>
             </el-image>
           </div>
@@ -345,7 +76,7 @@
               :src="risk.photoFour[0]"
               :preview-src-list="risk.photoFour">
               <div slot="error" class="image-slot">
-                <p>无</p>
+                <p></p>
               </div>
             </el-image>
           </div>
@@ -369,7 +100,7 @@
               :src="risk.guoluphoto[0]"
               :preview-src-list="risk.guoluphoto">
               <div slot="error" class="image-slot">
-                <p>无</p>
+                <p></p>
               </div>
             </el-image>
           </div>
@@ -386,7 +117,7 @@
               :src="risk.yalirongqiphoto[0]"
               :preview-src-list="risk.yalirongqiphoto">
               <div slot="error" class="image-slot">
-                <p>无</p>
+                <p></p>
               </div>
             </el-image>
           </div>
@@ -403,7 +134,7 @@
               :src="risk.qitaphoto[0]"
               :preview-src-list="risk.qitaphoto">
               <div slot="error" class="image-slot">
-                <p>无</p>
+                <p></p>
               </div>
             </el-image>
           </div>
@@ -427,7 +158,7 @@
               :src="risk.jiejingchejianphoto[0]"
               :preview-src-list="risk.jiejingchejianphoto">
               <div slot="error" class="image-slot">
-                <p>无</p>
+                <p></p>
               </div>
             </el-image>
           </div>
@@ -444,7 +175,7 @@
               :src="risk.shaguagnjiphoto[0]"
               :preview-src-list="risk.shaguagnjiphoto">
               <div slot="error" class="image-slot">
-                <p>无</p>
+                <p></p>
               </div>
             </el-image>
           </div>
@@ -461,7 +192,7 @@
               :src="risk.chongjianyajixiephoto[0]"
               :preview-src-list="risk.chongjianyajixiephoto">
               <div slot="error" class="image-slot">
-                <p>无</p>
+                <p></p>
               </div>
             </el-image>
           </div>
@@ -478,7 +209,7 @@
               :src="risk.kaoxiangphoto[0]"
               :preview-src-list="risk.kaoxiangphoto">
               <div slot="error" class="image-slot">
-                <p>无</p>
+                <p></p>
               </div>
             </el-image>
           </div>
@@ -502,7 +233,7 @@
               :src="risk.weixianhuaxuepinphoto[0]"
               :preview-src-list="risk.weixianhuaxuepinphoto">
               <div slot="error" class="image-slot">
-                <p>无</p>
+                <p></p>
               </div>
             </el-image>
           </div>
@@ -526,7 +257,7 @@
               :src="risk.lvmeifenchenphoto[0]"
               :preview-src-list="risk.lvmeifenchenphoto">
               <div slot="error" class="image-slot">
-                <p>无</p>
+                <p></p>
               </div>
             </el-image>
           </div>
@@ -543,7 +274,7 @@
               :src="risk.qitafenchenphoto[0]"
               :preview-src-list="risk.qitafenchenphoto">
               <div slot="error" class="image-slot">
-                <p>无</p>
+                <p></p>
               </div>
             </el-image>
           </div>
@@ -560,7 +291,7 @@
               :src="risk.sheanphoto[0]"
               :preview-src-list="risk.sheanphoto">
               <div slot="error" class="image-slot">
-                <p>无</p>
+                <p></p>
               </div>
             </el-image>
           </div>
@@ -577,7 +308,7 @@
               :src="risk.youxiankongjianphoto[0]"
               :preview-src-list="risk.youxiankongjianphoto">
               <div slot="error" class="image-slot">
-                <p>无</p>
+                <p></p>
               </div>
             </el-image>
           </div>
@@ -591,10 +322,10 @@
           <div class="demo-image__preview">
             <el-image
               style="width: 35px; height: 35px"
-              :src="risk.youxiankongjianphoto[0]"
-              :preview-src-list="risk.youxiankongjianphoto">
+              :src="risk.penqipenyouphoto[0]"
+              :preview-src-list="risk.penqipenyouphoto">
               <div slot="error" class="image-slot">
-                <p>无</p>
+                <p></p>
               </div>
             </el-image>
           </div>
@@ -611,7 +342,7 @@
               :src="risk.tucenghongganphoto[0]"
               :preview-src-list="risk.tucenghongganphoto">
               <div slot="error" class="image-slot">
-                <p>无</p>
+                <p></p>
               </div>
             </el-image>
           </div>
@@ -628,7 +359,7 @@
               :src="risk.lilizidianchiphoto[0]"
               :preview-src-list="risk.lilizidianchiphoto">
               <div slot="error" class="image-slot">
-                <p>无</p>
+                <p></p>
               </div>
             </el-image>
           </div>
@@ -645,7 +376,7 @@
               :src="risk.gaowenrongrongphoto[0]"
               :preview-src-list="risk.gaowenrongrongphoto">
               <div slot="error" class="image-slot">
-                <p>无</p>
+                <p></p>
               </div>
             </el-image>
           </div>
@@ -662,7 +393,7 @@
               :src="risk.shiyongpaifengguandaophoto[0]"
               :preview-src-list="risk.shiyongpaifengguandaophoto">
               <div slot="error" class="image-slot">
-                <p>无</p>
+                <p></p>
               </div>
             </el-image>
           </div>
@@ -686,7 +417,7 @@
               :src="risk.wuyuanwuyanlianphoto[0]"
               :preview-src-list="risk.wuyuanwuyanlianphoto">
               <div slot="error" class="image-slot">
-                <p>无</p>
+                <p></p>
               </div>
             </el-image>
           </div>
@@ -703,7 +434,7 @@
               :src="risk.youyuanwuyanlianphoto[0]"
               :preview-src-list="risk.youyuanwuyanlianphoto">
               <div slot="error" class="image-slot">
-                <p>无</p>
+                <p></p>
               </div>
             </el-image>
           </div>
@@ -720,7 +451,7 @@
               :src="risk.youyuanyouyanlianphoto[0]"
               :preview-src-list="risk.youyuanyouyanlianphoto">
               <div slot="error" class="image-slot">
-                <p>无</p>
+                <p></p>
               </div>
             </el-image>
           </div>
@@ -739,7 +470,7 @@
               :src="risk.weidabiaophoto[0]"
               :preview-src-list="risk.weidabiaophoto">
               <div slot="error" class="image-slot">
-                <p>无</p>
+                <p></p>
               </div>
             </el-image>
           </div>
@@ -756,7 +487,7 @@
               :src="risk.dabiaodanjilubuwanshanphoto[0]"
               :preview-src-list="risk.dabiaodanjilubuwanshanphoto">
               <div slot="error" class="image-slot">
-                <p>无</p>
+                <p></p>
               </div>
             </el-image>
           </div>
@@ -773,7 +504,7 @@
               :src="risk.dabiaoqieyouxiaoyunxingphoto[0]"
               :preview-src-list="risk.dabiaoqieyouxiaoyunxingphoto">
               <div slot="error" class="image-slot">
-                <p>无</p>
+                <p></p>
               </div>
             </el-image>
           </div>
@@ -791,7 +522,7 @@
               :src="risk.youzichazibaobingshangchuandaoxitongphoto[0]"
               :preview-src-list="risk.youzichazibaobingshangchuandaoxitongphoto">
               <div slot="error" class="image-slot">
-                <p>无</p>
+                <p></p>
               </div>
             </el-image>
           </div>
@@ -805,10 +536,10 @@
           <div class="demo-image__preview">
             <el-image
               style="width: 35px; height: 35px"
-              :src="risk.youzichazibaodanweishangchuan[0]"
+              :src="risk.youzichazibaodanweishangchuanphoto[0]"
               :preview-src-list="risk.youzichazibaodanweishangchuanphoto">
               <div slot="error" class="image-slot">
-                <p>无</p>
+                <p></p>
               </div>
             </el-image>
           </div>
@@ -825,7 +556,7 @@
               :src="risk.weijinxingzichazibaophoto[0]"
               :preview-src-list="risk.weijinxingzichazibaophoto">
               <div slot="error" class="image-slot">
-                <p>无</p>
+                <p></p>
               </div>
             </el-image>
           </div>
@@ -843,7 +574,7 @@
               :src="risk.wusanjipeixunphoto[0]"
               :preview-src-list="risk.wusanjipeixunphoto">
               <div slot="error" class="image-slot">
-                <p>无</p>
+                <p></p>
               </div>
             </el-image>
           </div>
@@ -860,7 +591,7 @@
               :src="risk.yousanjipeixundanbuwanshanphoto[0]"
               :preview-src-list="risk.yousanjipeixundanbuwanshanphoto">
               <div slot="error" class="image-slot">
-                <p>无</p>
+                <p></p>
               </div>
             </el-image>
           </div>
@@ -877,7 +608,7 @@
               :src="risk.sanjipeixunwanshanphoto[0]"
               :preview-src-list="risk.sanjipeixunwanshanphoto">
               <div slot="error" class="image-slot">
-                <p>无</p>
+                <p></p>
               </div>
             </el-image>
           </div>

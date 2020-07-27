@@ -228,6 +228,13 @@
       // 保存下载企业风险DOCX
       saveXDoc(row){
         var ImageModule = require("open-docxtemplater-image-module");
+        const https = require("http");
+        const Stream = require("stream").Transform;
+
+        //var fs = require("fs");
+        //const DocxTemplater = require("docxtemplater");
+        //const http = require("http");
+        //const Stream = require("stream").Transform;
 
         // 初始化总分值
         let accidentConsequenceScore = 0;
@@ -376,19 +383,129 @@
               return [100, 100];
             },
           };*/
-          let opts = {};
+
+          /*var opts = {};
           opts.centered = false;
           opts.getImage = function (tagValue, tagName) {
-            return fs.readFileSync(tagValue);
+            return new Promise(function (resolve, reject) {
+              JSZipUtils.getBinaryContent(tagValue, function (error, content) {
+                if (error) {
+                  return reject(error);
+                }
+                return resolve(content);
+              });
+            });
+          };
+          opts.getSize = function (img, tagValue, tagName) {
+            // FOR FIXED SIZE IMAGE :
+            return [150, 150];
+
+            // FOR IMAGE COMING FROM A URL (IF TAGVALUE IS AN ADDRESS) :
+            // To use this feature, you have to be using docxtemplater async
+            // (if you are calling setData(), you are not using async).
+            /!*return new Promise(function (resolve, reject) {
+              var image = new Image();
+              image.src = url;
+              image.onload = function () {
+                resolve([image.width, image.height]);
+              };
+              image.onerror = function (e) {
+                console.log("img, tagValue, tagName : ", img, tagValue, tagName);
+                alert("An error occured while loading " + tagValue);
+                reject(e);
+              };
+            });*!/
+          };*/
+
+          const opts = {};
+          opts.getImage = function (tagValue, tagName) {
+            console.log(tagValue, tagName);
+            // tagValue is "https://docxtemplater.com/xt-pro-white.png" and tagName is "image"
+            return new Promise(function (resolve, reject) {
+              getHttpData(tagValue[0], function (err, data) {
+                if (err) {
+                  return reject(err);
+                }
+                resolve(data);
+              });
+            });
           };
 
           opts.getSize = function (img, tagValue, tagName) {
+            // FOR FIXED SIZE IMAGE :
             return [150, 150];
+
+            // FOR IMAGE COMING FROM A URL (IF TAGVALUE IS AN ADDRESS) :
+            // To use this feature, you have to be using docxtemplater async
+            // (if you are calling setData(), you are not using async).
+            return new Promise(function (resolve, reject) {
+              var image = new Image();
+              image.src = url;
+              image.onload = function () {
+                resolve([image.width, image.height]);
+              };
+              image.onerror = function (e) {
+                console.log("img, tagValue, tagName : ", img, tagValue, tagName);
+                alert("An error occured while loading " + tagValue);
+                reject(e);
+              };
+            });
           };
+
+
           let zip = new PizZip(content);
           let doc = new Docxtemplater().loadZip(zip);
           doc.attachModule(new ImageModule(opts));
+          doc.compile();
           // 给docx模板赋值
+          doc.resolveData({
+            "photoOne": vm.risk.photoOne,
+            "photoTwo": vm.risk.photoTwo,
+            "photo3Three": vm.risk.photoThree,
+            "photo4Four": vm.risk.photoFour,
+            "photoFive": vm.risk.photoFive,
+
+            "锅炉图片": vm.risk.guoluphoto,
+            "压力容器图片": vm.risk.yalirongqiphoto,
+            "其他图片": vm.risk.qitaphoto,
+            "特种设备无图片": vm.risk.notphoto,
+
+            "洁净车间图片": vm.risk.jiejingchejianphoto,
+            "砂光机图片": vm.risk.shaguagnjiphoto,
+            "冲剪压机械图片": vm.risk.chongjianyajixiephoto,
+            "烤箱图片": vm.risk.kaoxiangphoto,
+            "危险设备无图片": vm.risk.weixianshebeiwuphoto,
+
+            "危险化学品图片": vm.risk.weixianhuaxuepinphoto,
+            "危险化学品无图片": vm.risk.weixianhuaxuepinwuphoto,
+
+            "铝镁粉尘图片": vm.risk.lvmeifenchenphoto,
+            "其他粉尘图片": vm.risk.qitafenchenphoto,
+            "涉氨图片": vm.risk.sheanphoto,
+            "有限空间图片": vm.risk.youxiankongjianphoto,
+            "喷漆喷油图片": vm.risk.penqipenyouphoto,
+            "图层烘干图片": vm.risk.tucenghongganphoto,
+            "锂离子电池图片": vm.risk.lilizidianchiphoto,
+            "高温熔融图片": vm.risk.gaowenrongrongphoto,
+            "使用排风管道图片": vm.risk.shiyongpaifengguandaophoto,
+            "危险工艺无图片": vm.risk.weixiangongyiwuphoto,
+
+            "无预案无演练图片": vm.risk.wuyuanwuyanlianphoto,
+            "有预案无演练图片": vm.risk.youyuanwuyanlianphoto,
+            "有预案有演练图片": vm.risk.youyuanyouyanlianphoto,
+
+            "未达标图片": vm.risk.weidabiaophoto,
+            "达标但记录不完善图片": vm.risk.dabiaodanjilubuwanshanphoto,
+            "达标且有效运行图片": vm.risk.dabiaoqieyouxiaoyunxingphoto,
+
+            "有自查自报并上传到系统图片": vm.risk.youzichazibaobingshangchuandaoxitongphoto,
+            "有自查自报，但未上传图片": vm.risk.youzichazibaodanweishangchuanphoto,
+            "未进行自查自白图片": vm.risk.weijinxingzichazibaophoto,
+
+            "无三级培训图片": vm.risk.wusanjipeixunphoto,
+            "有三及培训但不完善图片": vm.risk.yousanjipeixundanbuwanshanphoto,
+            "三级培训完善图片": vm.risk.sanjipeixunwanshanphoto,
+          });
           doc.setData({
             // 1、重大危险源
             "一级": vm.risk.riskLevel,
@@ -396,36 +513,24 @@
             "三级": vm.risk.riskLevel3,
             "四级": vm.risk.riskLevel4,
             "无": vm.risk.riskLevel5,
-            "photoOne": vm.risk.photoOne,
-            "photoTwo": vm.risk.photoTwo,
-            "photo3Three": vm.risk.photoThree,
-            "photo4Four": vm.risk.photoFour,
-            "photoFive": vm.risk.photoFive,
+
             // 2、特种设备
             "锅炉": vm.risk.guolu,
             "压力容器": vm.risk.yalirongqi,
             "其他": vm.risk.qita,
             "特种设备无": vm.risk.not,
-            "锅炉图片": vm.risk.guoluphoto,
-            "压力容器图片": vm.risk.yalirongqiphoto,
-            "其他图片": vm.risk.qitaphoto,
-            "特种设备无图片": vm.risk.notphoto,
+
             // 3、危险设施、设备
             "洁净车间": vm.risk.jiejingchejian,
             "砂光机": vm.risk.shaguagnji,
             "冲剪压机械": vm.risk.chongjianyajixie,
             "烤箱": vm.risk.kaoxiang,
             "危险设备无": vm.risk.weixianshebeiwu,
-            "洁净车间图片": vm.risk.jiejingchejianphoto,
-            "砂光机图片": vm.risk.shaguagnjiphoto,
-            "冲剪压机械图片": vm.risk.chongjianyajixiephoto,
-            "烤箱图片": vm.risk.kaoxiangphoto,
-            "危险设备无图片": vm.risk.weixianshebeiwuphoto,
+
             // 4、危险化学品
             "危险化学品": vm.risk.weixianhuaxuepin,
             "危险化学品无": vm.risk.weixianhuaxuepinwu,
-            "危险化学品图片": vm.risk.weixianhuaxuepinphoto,
-            "危险化学品无图片": vm.risk.weixianhuaxuepinwuphoto,
+
             // 5、危险工艺
             "铝镁粉尘": vm.risk.lvmeifenchen,
             "其他粉尘": vm.risk.qitafenchen,
@@ -437,44 +542,27 @@
             "高温熔融": vm.risk.gaowenrongrong,
             "使用排风管道": vm.risk.shiyongpaifengguandao,
             "危险工艺无": vm.risk.weixiangongyiwu,
-            "铝镁粉尘图片": vm.risk.lvmeifenchenphoto,
-            "其他粉尘图片": vm.risk.qitafenchenphoto,
-            "涉氨图片": vm.risk.sheanphoto,
-            "有限空间图片": vm.risk.youxiankongjianphoto,
-            "喷漆喷油图片": vm.risk.penqipenyouphoto,
-            "图层烘干图片": vm.risk.tucenghongganphoto,
-            "锂离子电池图片": vm.risk.lilizidianchiphoto,
-            "高温熔融图片": vm.risk.gaowenrongrongphoto,
-            "使用排风管道图片": vm.risk.shiyongpaifengguandaophoto,
-            "危险工艺无图片": vm.risk.weixiangongyiwuphoto,
+
             // 6、应急反应
             "无预案无演练": vm.risk.wuyuanwuyanlian,
             "有预案无演练": vm.risk.youyuanwuyanlian,
             "有预案有演练": vm.risk.youyuanyouyanlian,
-            "无预案无演练图片": vm.risk.wuyuanwuyanlianphoto,
-            "有预案无演练图片": vm.risk.youyuanwuyanlianphoto,
-            "有预案有演练图片": vm.risk.youyuanyouyanlianphoto,
+
             // 7、安全生产标准化
             "未达标": vm.risk.weidabiao,
             "达标但记录不完善": vm.risk.dabiaodanjilubuwanshan,
             "达标且有效运行": vm.risk.dabiaoqieyouxiaoyunxing,
-            "未达标图片": vm.risk.weidabiaophoto,
-            "达标但记录不完善图片": vm.risk.dabiaodanjilubuwanshanphoto,
-            "达标且有效运行图片": vm.risk.dabiaoqieyouxiaoyunxingphoto,
+
             // 8、隐患自查自报
             "有自查自报并上传到系统": vm.risk.youzichazibaobingshangchuandaoxitong,
             "有自查自报，但未上传": vm.risk.youzichazibaodanweishangchuan,
             "未进行自查自报": vm.risk.weijinxingzichazibao,
-            "有自查自报并上传到系统图片": vm.risk.youzichazibaobingshangchuandaoxitongphoto,
-            "有自查自报，但未上传图片": vm.risk.youzichazibaodanweishangchuanphoto,
-            "未进行自查自白图片": vm.risk.weijinxingzichazibaophoto,
+
             // 9、安全教育培训情况
             "无三级培训": vm.risk.wusanjipeixun,
             "有三级培训但不完善": vm.risk.yousanjipeixundanbuwanshan,
             "三级培训完善": vm.risk.sanjipeixunwanshan,
-            "无三级培训图片": vm.risk.wusanjipeixunphoto,
-            "有三及培训但不完善图片": vm.risk.yousanjipeixundanbuwanshanphoto,
-            "三级培训完善图片": vm.risk.sanjipeixunwanshanphoto,
+
             // 10、从业人数
             "≥300": vm.risk.morethanthreehundred,
             "100～300": vm.risk.onetothreehundred,
@@ -493,7 +581,52 @@
             "主要风险名称": row.mainRisk,
             "加强培训": row.strengthenTraining,
 
+            "photoOne": vm.risk.photoOne,
+            "photoTwo": vm.risk.photoTwo,
+            "photo3Three": vm.risk.photoThree,
+            "photo4Four": vm.risk.photoFour,
+            "photoFive": vm.risk.photoFive,
 
+            "锅炉图片": vm.risk.guoluphoto,
+            "压力容器图片": vm.risk.yalirongqiphoto,
+            "其他图片": vm.risk.qitaphoto,
+            "特种设备无图片": vm.risk.notphoto,
+
+            "洁净车间图片": vm.risk.jiejingchejianphoto,
+            "砂光机图片": vm.risk.shaguagnjiphoto,
+            "冲剪压机械图片": vm.risk.chongjianyajixiephoto,
+            "烤箱图片": vm.risk.kaoxiangphoto,
+            "危险设备无图片": vm.risk.weixianshebeiwuphoto,
+
+            "危险化学品图片": vm.risk.weixianhuaxuepinphoto,
+            "危险化学品无图片": vm.risk.weixianhuaxuepinwuphoto,
+
+            "铝镁粉尘图片": vm.risk.lvmeifenchenphoto,
+            "其他粉尘图片": vm.risk.qitafenchenphoto,
+            "涉氨图片": vm.risk.sheanphoto,
+            "有限空间图片": vm.risk.youxiankongjianphoto,
+            "喷漆喷油图片": vm.risk.penqipenyouphoto,
+            "图层烘干图片": vm.risk.tucenghongganphoto,
+            "锂离子电池图片": vm.risk.lilizidianchiphoto,
+            "高温熔融图片": vm.risk.gaowenrongrongphoto,
+            "使用排风管道图片": vm.risk.shiyongpaifengguandaophoto,
+            "危险工艺无图片": vm.risk.weixiangongyiwuphoto,
+
+            "无预案无演练图片": vm.risk.wuyuanwuyanlianphoto,
+            "有预案无演练图片": vm.risk.youyuanwuyanlianphoto,
+            "有预案有演练图片": vm.risk.youyuanyouyanlianphoto,
+
+            "未达标图片": vm.risk.weidabiaophoto,
+            "达标但记录不完善图片": vm.risk.dabiaodanjilubuwanshanphoto,
+            "达标且有效运行图片": vm.risk.dabiaoqieyouxiaoyunxingphoto,
+
+            "有自查自报并上传到系统图片": vm.risk.youzichazibaobingshangchuandaoxitongphoto,
+            "有自查自报，但未上传图片": vm.risk.youzichazibaodanweishangchuanphoto,
+            "未进行自查自白图片": vm.risk.weijinxingzichazibaophoto,
+
+            "无三级培训图片": vm.risk.wusanjipeixunphoto,
+            "有三及培训但不完善图片": vm.risk.yousanjipeixundanbuwanshanphoto,
+            "三级培训完善图片": vm.risk.sanjipeixunwanshanphoto,
           });
 
           try {
@@ -529,14 +662,38 @@
             throw error;
           }
           var out = doc.getZip().generate({
-            type: "nodebuffer",
+            type: "blob",
             compression: "DEFLATE",
             mimeType:
               "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
           }); //Output the document using Data-URI
           saveAs(out, row.companyName + ".docx");
-          location.reload()
+          //location.reload()
       })
+        function getHttpData(url, callback) {
+          https
+            .request(url, function (response) {
+              if (response.statusCode !== 200) {
+                return callback(
+                  new Error(
+                    `Request to ${url} failed, status code: ${response.statusCode}`
+                  )
+                );
+              }
+
+              const data = new Stream();
+              response.on("data", function (chunk) {
+                data.push(chunk);
+              });
+              response.on("end", function () {
+                callback(null, data.read());
+              });
+              response.on("error", function (e) {
+                callback(e);
+              });
+            })
+            .end();
+        }
 
       },
 
