@@ -97,33 +97,38 @@
 
           if(this.risklevel>=1000){
             this.therisklevel="重大危险"
-            this.$set(item,'url',"https://i.loli.net/2020/06/05/j7GY85dDfPczIEt.png")
+            //this.$set(item,'url',"https://i.loli.net/2020/06/05/j7GY85dDfPczIEt.png")
+            this.$set(item,'url',"http://localhost:9000/uploadFile/red1.png")
             this.$set(item,'score',this.risklevel)
             this.$set(item,'therisklevel',"重大危险")
 
           }
           if(1000>this.risklevel&&this.risklevel>=720){
             this.therisklevel="较大风险"
-            this.$set(item,'url',"https://i.loli.net/2020/06/05/qM3AGbaHEcCtWJL.png")
+            //this.$set(item,'url',"https://i.loli.net/2020/06/05/qM3AGbaHEcCtWJL.png")
+            this.$set(item,'url',"http://localhost:9000/uploadFile/orange1.png")
             this.$set(item,'score',this.risklevel)
             this.$set(item,'therisklevel',"较大风险")
 
           }
           if(720>this.risklevel&&this.risklevel>=500){
             this.therisklevel="一般风险"
-            this.$set(item,'url',"https://i.loli.net/2020/06/05/dxCYi4MK1S237fU.png")
+            //this.$set(item,'url',"https://i.loli.net/2020/06/05/dxCYi4MK1S237fU.png")
+            this.$set(item,'url',"http://localhost:9000/uploadFile/yellow1.png")
             this.$set(item,'score',this.risklevel)
             this.$set(item,'therisklevel',"一般风险")
           }
           if(500>this.risklevel&&this.risklevel>=300){
             this.therisklevel="较低风险"
-            this.$set(item,'url',"https://i.loli.net/2020/06/05/eX97TtqKB4EjG28.png")
+            //this.$set(item,'url',"https://i.loli.net/2020/06/05/eX97TtqKB4EjG28.png")
+            this.$set(item,'url',"http://localhost:9000/uploadFile/blue1.png")
             this.$set(item,'score',this.risklevel)
             this.$set(item,'therisklevel',"较低风险")
           }
           if(300>this.risklevel){
             this.therisklevel="无风险"
-            this.$set(item,'url',"https://i.loli.net/2020/06/05/N8p5uaK7HJqgcZM.png")
+            //this.$set(item,'url',"https://i.loli.net/2020/06/05/N8p5uaK7HJqgcZM.png")
+            this.$set(item,'url',"http://localhost:9000/uploadFile/green1.png")
             this.$set(item,'score',this.risklevel)
             this.$set(item,'therisklevel',"无风险")
           }

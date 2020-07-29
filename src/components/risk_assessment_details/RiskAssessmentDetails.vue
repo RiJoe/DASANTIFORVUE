@@ -111,7 +111,7 @@
           riskLevel5: '',
           photoOne: '',
           photoTwo: '',
-          photoThree: '',
+          photoThree: "",
           photoFour: '',
           photoFive: '',
           // 2、特种设备
@@ -207,6 +207,28 @@
       this.getAllEnterprise()
     },
     methods:{
+     /* getImageBase64URL(tag){
+        if (tag[0] !=="") {
+          let reader = new FileReader()
+          let image = new Image();
+          image.setAttribute('crossOrigin', 'anonymous');
+          image.src = tag[0]
+          //image.onload为异步加载
+          image.onload = () => {
+            let canvas = document.createElement("canvas");
+            canvas.width = image.width;
+            canvas.height = image.height;
+            let context = canvas.getContext('2d');
+            context.drawImage(image, 0, 0, image.width, image.height);
+
+            let quality = 0.8;
+            //这里的dataurl就是base64类型
+            let dataURL = canvas.toDataURL("image/jpeg", quality);
+            return dataURL;
+          }
+        }
+      },*/
+
       tableRowClassName({row, column, rowIndex, columnIndex}) {
         if (row.riskScore >= 1000 && columnIndex ===0) return 'danger-row'
         if (1000> row.riskScore && row.riskScore >= 720 && columnIndex ===0) return 'warning-row'
@@ -227,6 +249,31 @@
       },
       // 保存下载企业风险DOCX
       saveXDoc(row){
+        let vm = this
+        function getImageBase64URL(tag){
+          if (tag[0] !=="" && tag.length > 0) {
+            let reader = new FileReader()
+            let image = new Image();
+            image.setAttribute('crossOrigin', 'anonymous');
+            image.src = tag[0]
+            //image.onload为异步加载
+            image.onload = () => {
+              let canvas = document.createElement("canvas");
+              canvas.width = image.width;
+              canvas.height = image.height;
+              let context = canvas.getContext('2d');
+              context.drawImage(image, 0, 0, image.width, image.height);
+
+              let quality = 0.8;
+              //这里的dataurl就是base64类型
+              let dataURL = canvas.toDataURL("image/jpeg", quality);
+              return dataURL;
+            }
+          }else{
+            return ""
+          }
+        }
+
         var ImageModule = require("open-docxtemplater-image-module");
         const https = require("http");
         const Stream = require("stream").Transform;
@@ -240,15 +287,17 @@
         let accidentConsequenceScore = 0;
         let possibilityOfAccidentScore = 0;
         let theNumberOfEmployeesScore = 0;
+
         row.concreteEvaluationList.forEach((item,index)=>{
 
           // 1、重大危险源
           if(item.influenceFactorId ===1){
-            if (item.determineFactor ==='一级') this.risk.riskLevel = "√",this.risk.photoOne = item.photo.split(',')
+            if (item.determineFactor ==='一级') this.risk.riskLevel = "√", this.risk.photoOne = item.photo.split(',')
             if (item.determineFactor ==='二级') this.risk.riskLevel2 = "√", this.risk.photoTwo = item.photo.split(',')
-            if (item.determineFactor ==='三级') this.risk.riskLevel3 = "√",this.risk.photoThree = item.photo.split(',')
+            if (item.determineFactor ==='三级') this.risk.riskLevel3 = "√", this.risk.photoThree = item.photo.split(',')
             if (item.determineFactor ==='四级') this.risk.riskLevel4 = "√",this.risk.photoFour = item.photo.split(',')
             if (item.determineFactor ==='无') this.risk.riskLevel5 = "√",this.risk.photoFive = item.photo.split(',')
+
           }
           // 2、特种设备
           if(item.influenceFactorId === 2){
@@ -284,7 +333,6 @@
             if(item.determineFactor === "高温熔融") this.risk.gaowenrongrong = "√",this.risk.gaowenrongrongphoto = item.photo.split(',')
             if(item.determineFactor === "使用排风管道") this.risk.shiyongpaifengguandao = "√",this.risk.shiyongpaifengguandaophoto = item.photo.split(',')
             if(item.determineFactor === "危险工艺无") this.risk.weixiangongyiwu = "√",this.risk.weixiangongyiwuphoto = item.photo.split(',')
-
           }
           // 6、应急反应
           if(item.influenceFactorId === 6){
@@ -294,21 +342,21 @@
           }
           // 7、安全生产标准化
           if(item.influenceFactorId === 7){
-            if (item.determineFactor === "未达标") this.risk.weidabiao = "√",this.risk.weidabiaophoto = (item.photo||"").split(',')
-            if (item.determineFactor === "达标但记录不完善") this.risk.dabiaodanjilubuwanshan = "√",this.risk.dabiaodanjilubuwanshanphoto = (item.photo || "").split(',')
-            if (item.determineFactor === "达标且有效运行")  this.risk.dabiaoqieyouxiaoyunxing = "√",this.risk.dabiaoqieyouxiaoyunxingphoto = (item.photo || "").split(',')
+            if (item.determineFactor === "未达标") this.risk.weidabiao = "√",this.risk.weidabiaophoto = item.photo.split(',')
+            if (item.determineFactor === "达标但记录不完善") this.risk.dabiaodanjilubuwanshan = "√",this.risk.dabiaodanjilubuwanshanphoto = item.photo.split(',')
+            if (item.determineFactor === "达标且有效运行")  this.risk.dabiaoqieyouxiaoyunxing = "√",this.risk.dabiaoqieyouxiaoyunxingphoto = item.photo.split(',')
 
           }
           // 8、隐患自查自报
           if(item.influenceFactorId ===8){
-            if (item.determineFactor === "有自查自报并上传到系统") this.risk.youzichazibaobingshangchuandaoxitong = "√" ,this.risk.youzichazibaobingshangchuandaoxitongphoto = (item.photo || "").split(',')
-            if (item.determineFactor === "有自查自报，但未上传") this.risk.youzichazibaodanweishangchuan = "√", this.risk.youzichazibaodanweishangchuanphoto = (item.photo || "").split(',')
-            if (item.determineFactor === "未进行自查自报") this.risk.weijinxingzichazibao = "√", this.risk.weijinxingzichazibaophoto = (item.photo || "").split(',')
+            if (item.determineFactor === "有自查自报并上传到系统") this.risk.youzichazibaobingshangchuandaoxitong = "√" ,this.risk.youzichazibaobingshangchuandaoxitongphoto = item.photo.split(',')
+            if (item.determineFactor === "有自查自报，但未上传") this.risk.youzichazibaodanweishangchuan = "√", this.risk.youzichazibaodanweishangchuanphoto = item.photo.split(',')
+            if (item.determineFactor === "未进行自查自报") this.risk.weijinxingzichazibao = "√", this.risk.weijinxingzichazibaophoto = item.photo.split(',')
 
           }
           // 9、安全教育培训情况
           if(item.influenceFactorId ===9){
-            if (item.determineFactor === "无三级培训") this.risk.wusanjipeixun = "√",this.risk.wusanjipeixunphoto = (item.photo || "").split(',')
+            if (item.determineFactor === "无三级培训") this.risk.wusanjipeixun = "√",this.risk.wusanjipeixunphoto = item.photo.split(',')
             if (item.determineFactor === "有三级培训但不完善") this.risk.yousanjipeixundanbuwanshan = "√",this.risk.yousanjipeixundanbuwanshanphoto = (item.photo || "").split(',')
             if (item.determineFactor === "三级培训完善") this.risk.sanjipeixunwanshan = "√",this.risk.sanjipeixunwanshanphoto = (item.photo || "").split(',')
           }
@@ -335,7 +383,7 @@
         })
         // 企业风险值
         this.risk.score = accidentConsequenceScore*possibilityOfAccidentScore*theNumberOfEmployeesScore
-        let vm = this
+
         JSZipUtils.getBinaryContent("../../static/risk.docx",function (error,content) {
           if(error){
             throw error;
@@ -374,91 +422,66 @@
               }*!/
               return byte[0]
             }
+          }*/
+
+          function base64DataURLToArrayBuffer(dataURL) {
+            //console.log(dataURL)
+            const base64Regex = /^data:image\/(png|jpeg|jpg|svg|svg\+xml);base64,/;
+            if (!base64Regex.test(dataURL)) {
+              return false;
+            }
+            const stringBase64 = dataURL.replace(base64Regex, "");
+            let binaryString;
+            if (typeof window !== "undefined") {
+              binaryString = window.atob(stringBase64);
+            } else {
+              binaryString = Buffer.from(stringBase64, "base64").toString("binary");
+            }
+            const len = binaryString.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+              const ascii = binaryString.charCodeAt(i);
+              bytes[i] = ascii;
+            }
+            console.log(bytes.buffer)
+            return bytes.buffer;
           }
+
           const imageOpts = {
             getImage(tag) {
-              return  base64DataURLToArrayBuffer(tag);
+              if (tag[0] !=="") {
+                //let reader = new FileReader()
+                let image = new Image();
+                image.setAttribute('crossOrigin', 'anonymous');
+                image.src = tag[0]
+                //image.onload为异步加载
+                image.onload = () => {
+                  let canvas = document.createElement("canvas");
+                  canvas.width = 100;
+                  canvas.height = 100;
+                  let context = canvas.getContext('2d');
+                  context.drawImage(image, 0, 0, 100, 100);
+
+                  let quality = 0.8;
+                  //这里的dataurl就是base64类型
+                  let dataURL = canvas.toDataURL("image/jpeg", quality);
+                  return base64DataURLToArrayBuffer(dataURL);
+                }
+              }
+              return base64DataURLToArrayBuffer(tag);
             },
             getSize() {
               return [100, 100];
             },
-          };*/
-
-          /*var opts = {};
-          opts.centered = false;
-          opts.getImage = function (tagValue, tagName) {
-            return new Promise(function (resolve, reject) {
-              JSZipUtils.getBinaryContent(tagValue, function (error, content) {
-                if (error) {
-                  return reject(error);
-                }
-                return resolve(content);
-              });
-            });
-          };
-          opts.getSize = function (img, tagValue, tagName) {
-            // FOR FIXED SIZE IMAGE :
-            return [150, 150];
-
-            // FOR IMAGE COMING FROM A URL (IF TAGVALUE IS AN ADDRESS) :
-            // To use this feature, you have to be using docxtemplater async
-            // (if you are calling setData(), you are not using async).
-            /!*return new Promise(function (resolve, reject) {
-              var image = new Image();
-              image.src = url;
-              image.onload = function () {
-                resolve([image.width, image.height]);
-              };
-              image.onerror = function (e) {
-                console.log("img, tagValue, tagName : ", img, tagValue, tagName);
-                alert("An error occured while loading " + tagValue);
-                reject(e);
-              };
-            });*!/
-          };*/
-
-          const opts = {};
-          opts.getImage = function (tagValue, tagName) {
-            console.log(tagValue, tagName);
-            // tagValue is "https://docxtemplater.com/xt-pro-white.png" and tagName is "image"
-            return new Promise(function (resolve, reject) {
-              getHttpData(tagValue[0], function (err, data) {
-                if (err) {
-                  return reject(err);
-                }
-                resolve(data);
-              });
-            });
-          };
-
-          opts.getSize = function (img, tagValue, tagName) {
-            // FOR FIXED SIZE IMAGE :
-            return [150, 150];
-
-            // FOR IMAGE COMING FROM A URL (IF TAGVALUE IS AN ADDRESS) :
-            // To use this feature, you have to be using docxtemplater async
-            // (if you are calling setData(), you are not using async).
-            return new Promise(function (resolve, reject) {
-              var image = new Image();
-              image.src = url;
-              image.onload = function () {
-                resolve([image.width, image.height]);
-              };
-              image.onerror = function (e) {
-                console.log("img, tagValue, tagName : ", img, tagValue, tagName);
-                alert("An error occured while loading " + tagValue);
-                reject(e);
-              };
-            });
           };
 
 
           let zip = new PizZip(content);
           let doc = new Docxtemplater().loadZip(zip);
-          doc.attachModule(new ImageModule(opts));
-          doc.compile();
-          // 给docx模板赋值
-          doc.resolveData({
+          doc.attachModule(new ImageModule(imageOpts));
+
+          //doc.resolveData(data);
+          doc.setData({
             "photoOne": vm.risk.photoOne,
             "photoTwo": vm.risk.photoTwo,
             "photo3Three": vm.risk.photoThree,
@@ -505,8 +528,6 @@
             "无三级培训图片": vm.risk.wusanjipeixunphoto,
             "有三及培训但不完善图片": vm.risk.yousanjipeixundanbuwanshanphoto,
             "三级培训完善图片": vm.risk.sanjipeixunwanshanphoto,
-          });
-          doc.setData({
             // 1、重大危险源
             "一级": vm.risk.riskLevel,
             "二级": vm.risk.riskLevel2,
@@ -581,52 +602,7 @@
             "主要风险名称": row.mainRisk,
             "加强培训": row.strengthenTraining,
 
-            "photoOne": vm.risk.photoOne,
-            "photoTwo": vm.risk.photoTwo,
-            "photo3Three": vm.risk.photoThree,
-            "photo4Four": vm.risk.photoFour,
-            "photoFive": vm.risk.photoFive,
 
-            "锅炉图片": vm.risk.guoluphoto,
-            "压力容器图片": vm.risk.yalirongqiphoto,
-            "其他图片": vm.risk.qitaphoto,
-            "特种设备无图片": vm.risk.notphoto,
-
-            "洁净车间图片": vm.risk.jiejingchejianphoto,
-            "砂光机图片": vm.risk.shaguagnjiphoto,
-            "冲剪压机械图片": vm.risk.chongjianyajixiephoto,
-            "烤箱图片": vm.risk.kaoxiangphoto,
-            "危险设备无图片": vm.risk.weixianshebeiwuphoto,
-
-            "危险化学品图片": vm.risk.weixianhuaxuepinphoto,
-            "危险化学品无图片": vm.risk.weixianhuaxuepinwuphoto,
-
-            "铝镁粉尘图片": vm.risk.lvmeifenchenphoto,
-            "其他粉尘图片": vm.risk.qitafenchenphoto,
-            "涉氨图片": vm.risk.sheanphoto,
-            "有限空间图片": vm.risk.youxiankongjianphoto,
-            "喷漆喷油图片": vm.risk.penqipenyouphoto,
-            "图层烘干图片": vm.risk.tucenghongganphoto,
-            "锂离子电池图片": vm.risk.lilizidianchiphoto,
-            "高温熔融图片": vm.risk.gaowenrongrongphoto,
-            "使用排风管道图片": vm.risk.shiyongpaifengguandaophoto,
-            "危险工艺无图片": vm.risk.weixiangongyiwuphoto,
-
-            "无预案无演练图片": vm.risk.wuyuanwuyanlianphoto,
-            "有预案无演练图片": vm.risk.youyuanwuyanlianphoto,
-            "有预案有演练图片": vm.risk.youyuanyouyanlianphoto,
-
-            "未达标图片": vm.risk.weidabiaophoto,
-            "达标但记录不完善图片": vm.risk.dabiaodanjilubuwanshanphoto,
-            "达标且有效运行图片": vm.risk.dabiaoqieyouxiaoyunxingphoto,
-
-            "有自查自报并上传到系统图片": vm.risk.youzichazibaobingshangchuandaoxitongphoto,
-            "有自查自报，但未上传图片": vm.risk.youzichazibaodanweishangchuanphoto,
-            "未进行自查自白图片": vm.risk.weijinxingzichazibaophoto,
-
-            "无三级培训图片": vm.risk.wusanjipeixunphoto,
-            "有三及培训但不完善图片": vm.risk.yousanjipeixundanbuwanshanphoto,
-            "三级培训完善图片": vm.risk.sanjipeixunwanshanphoto,
           });
 
           try {
@@ -671,6 +647,7 @@
           //location.reload()
       })
         function getHttpData(url, callback) {
+          console.log(url)
           https
             .request(url, function (response) {
               if (response.statusCode !== 200) {
